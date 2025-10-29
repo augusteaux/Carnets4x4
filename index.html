@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Generador de Foto Carnet 4x4 PDF/PNG</title>
+    
+    <meta name="description" content="Crea gratis tu foto carnet 4x4 o passport photo gratis. Recorta, genera planillas A4 con 24 fotos y descarga en PDF o PNG, optimizado para impresión.">
+    
+    <meta name="keywords" content="
+        generar foto carnet, foto carnet, foto documento, fotos 4x4, imprimir fotos carnet, generador online, 
+        passport photo, generate passport photo, visa photo, generate visa photo, id photo maker, photo print, 
+        foto para documento, fotos para pasaporte, planilla A4, recorte de fotos, descargar PDF, descargar PNG, 
+        photo d'identité, générateur photo identité, photo visa france, photo passeport, 
+        gerador de foto 3x4, foto para documento, foto passaporte, baixar PDF, photo ID, free photo generator,
+        fototessere, generatore fototessera, 
+        fotos infantiles, fotos para documentos oficiales
+    ">
+    
+    <meta name="robots" content="index, follow"> 
+    <link rel="icon" type="image/png" href="alt_logo.png"> 
+    
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1 class="pixel-font">GENERADOR DE CARNET</h1>
+    </header>
+    <main class="contenedor">
+        
+        <section class="seccion-recorte">
+            <h2>Recortar a Foto Carnet (4cm x 4cm)</h2>
+            <div class="controles">
+                <label for="subirImagenRecorte" class="custom-file-upload">
+                    <svg class="upload-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.293a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                    <span>Subir Imagen</span>
+                </label>
+                <input type="file" id="subirImagenRecorte" accept="image/*" style="display: none;">
+                <button id="btnDescargarCarnet" disabled>Descargar Carnet (PNG)</button>
+            </div>
+            <div class="visualizacion">
+                <div class="visor-recorte">
+                    <img id="imagenParaRecortar" src="" alt="Imagen para recortar" style="max-width: 100%; display: none;">
+                </div>
+                <div class="previa-carnet">
+                    <h3>Previsualizacion 4x4</h3>
+                    <canvas id="previaCarnetCanvas" width="150" height="150" style="border: 1px solid #ccc;"></canvas>
+                    <p class="nota">Relacion de aspecto 1:1 </p> <p> 4x4 cm</p>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="seccion-planilla">
+            <h2>Generar Planilla A4, 24 Fotos</h2>
+            <div class="controles">
+                 <label for="subirFotoCarnet" class="custom-file-upload">
+                    <svg class="upload-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.293a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                    <span>Subir Foto Carnet</span>
+                </label>
+                <input type="file" id="subirFotoCarnet" accept="image/png" style="display: none;" title="Sube la foto 4x4 generada o tu propia imagen 1:1">
+                <button id="btnGenerarPDF" disabled>Generar Planilla PDF</button>
+            </div>
+            <div id="contenedorPlanillaA4" class="hoja-a4">
+                 <p id="mensajePlanilla">Sube una foto carnet para generar la planilla</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="pixel-font">
+        <p>Encontra este proyecto en <a href="https://github.com/tu_usuario/tu_repositorio" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+        <p>&copy; 2025 Generador Web de Fotos Carnet. Proyecto de codigo abierto.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
