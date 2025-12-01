@@ -51,7 +51,11 @@
                     <span>Subir Imagen</span>
                 </label>
                 <input type="file" id="subirImagenRecorte" accept="image/*" style="display: none;">
-                <button id="btnDescargarCarnet" disabled>Descargar Carnet (PNG)</button>
+                
+                <button id="btnDescargarCarnet" class="custom-file-upload" disabled>
+                    <svg class="upload-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.293a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                    <span>Descargar Carnet</span>
+                </button>
             </div>
             <div class="visualizacion">
                 <div class="visor-recorte">
@@ -72,13 +76,17 @@
             <div class="controles">
                    <label for="subirFotoCarnet" class="custom-file-upload">
                     <svg class="upload-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.293a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                    <span>Subir Foto Carnet</span>
+                    <span>Subir Imagen</span>
                 </label>
                 <input type="file" id="subirFotoCarnet" accept="image/png" style="display: none;" title="Sube la foto 4x4 generada o tu propia imagen 1:1">
-                <button id="btnGenerarPDF" disabled>Generar Planilla PDF</button>
+                
+                <button id="btnGenerarPDF" class="custom-file-upload" disabled>
+                    <svg class="upload-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.293a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                    <span>Generar Planilla</span>
+                </button>
             </div>
             <div id="contenedorPlanillaA4" class="hoja-a4">
-                   <p id="mensajePlanilla">Sube una foto carnet para generar la planilla</p>
+                   <p id="mensajePlanilla">Sube o recorta una foto carnet para generar la planilla</p>
             </div>
         </section>
     </main>

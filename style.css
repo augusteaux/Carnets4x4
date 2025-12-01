@@ -1,248 +1,247 @@
-:root {
-    --color-primario: #007bff;
-    --color-secundario: #f8f9fa;
-    --color-texto: #333;
-    --color-borde: #dee2e6;
-    --color-dark-bg: #1a1a1a;
-    --color-dark-text: #ffffff;
-}
-
-* {
-    box-sizing: border-box;
+body {
+    font-family: sans-serif;
     margin: 0;
     padding: 0;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: var(--color-texto);
-    background-color: var(--color-secundario);
+    background-color: #f4f4f9;
+    color: #333;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-.pixel-font {
-    font-family: 'Silkscreen', monospace;
-    text-shadow: 2px 2px #000;
-}
-
 header {
-    background-color: var(--color-dark-bg);
-    color: var(--color-dark-text);
-    padding: 25px 20px;
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
     text-align: center;
-    box-shadow: none;
-    width: 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 header h1 {
-    color: var(--color-dark-text);
-    font-size: 2.2em;
-    letter-spacing: 3px;
-    word-wrap: break-word;
-    white-space: normal;
+    color: white; 
+}
+
+
+.contenedor {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    flex-grow: 1;
+}
+
+h1, h2 {
+    color: #0056b3;
+    text-align: center;
 }
 
 h2 {
-    color: var(--color-primario);
-    margin-bottom: 15px;
+    margin-top: 0;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
 }
 
-.contenedor {
-    max-width: 1200px;
-    margin: 20px auto;
-    background: white;
-    padding: 20px 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    flex-grow: 1;
-    width: calc(100% - 40px);
-}
-
-@media (max-width: 768px) {
-    .contenedor {
-        padding: 15px 20px;
-        margin: 15px 15px;
-        width: calc(100% - 30px);
-    }
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #ccc;
+    margin: 40px 0;
 }
 
 .seccion-recorte, .seccion-planilla {
     padding: 20px 0;
-    border-bottom: 1px solid var(--color-borde);
 }
 
 .controles {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.custom-file-upload, button {
-    min-height: 44px;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s;
-    width: 100%;
-    
-    display: flex;
-    align-items: center;
     justify-content: center;
-    text-align: center;
-}
-
-button {
-    background-color: var(--color-primario);
-    color: #000000;
-    border: 1px solid var(--color-primario);
-    white-space: nowrap;
-}
-
-button:hover:not(:disabled) {
-    background-color: #0056b3;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .custom-file-upload {
-    background-color: var(--color-primario);
-    color: #000000;
-    border: 1px solid var(--color-primario);
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .custom-file-upload:hover {
-    background-color: #0056b3;
+    background-color: #218838;
 }
 
-.custom-file-upload .upload-icon {
+.upload-icon {
     width: 20px;
     height: 20px;
-    margin-right: 8px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: white; 
+}
+
+#btnDescargarCarnet {
+    background-color: #28a745; 
+    color: white;
+}
+
+#btnDescargarCarnet:hover:not(:disabled) {
+    background-color: #218838;
+}
+
+#btnGenerarPDF {
+    background-color: #28a745;
+    color: white;
+}
+
+#btnGenerarPDF:hover:not(:disabled) {
+    background-color: #218838;
+}
+
+button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
 }
 
 .visualizacion {
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
     gap: 20px;
-    align-items: center;
+    flex-wrap: wrap;
 }
 
 .visor-recorte {
     width: 100%;
-    max-width: 400px;
-    height: 400px;
-    position: relative;
-    overflow: hidden;
+    max-width: 450px;
+    height: auto;
+    max-height: 450px;
     background-color: #eee;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    overflow: hidden;
+    position: relative;
 }
 
 .previa-carnet {
     text-align: center;
-    padding: 10px;
-    border: 1px dashed var(--color-primario);
-    border-radius: 4px;
-    width: 100%;
-    max-width: 200px;
+    margin-top: 20px;
 }
 
 #previaCarnetCanvas {
+    width: 150px;
+    height: 150px;
     display: block;
-    margin: 10px auto;
-    width: 120px;
-    height: 120px;
-    border: 1px solid var(--color-texto);
+    margin: 0 auto;
+    border: 1px solid #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .nota {
-    font-size: 0.85em;
-    color: #6c757d;
+    font-size: 0.9em;
+    color: #666;
+    margin: 5px 0 0;
 }
 
 .hoja-a4 {
-    width: 100%;
-    max-width: 794px;
-    aspect-ratio: 794 / 1123;
-    background: #fff;
-    border: 3px dashed #007bff;
+    width: 300px; 
+    height: 424px; 
+    border: 2px solid #333; 
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     margin: 20px auto;
-    padding: 10mm 15mm;
-    display: grid;
-    grid-template-columns: repeat(4, 40mm);
-    grid-template-rows: repeat(6, 40mm);
-    gap: 5mm;
-    justify-content: center;
-    align-content: center;
-    overflow: hidden;
-}
-
-.foto-carnet-a4 {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    border: 1px solid #ccc;
-}
-
-#mensajePlanilla {
-    grid-column: 1 / -1;
-    grid-row: 1 / -1;
+    overflow: hidden; 
+    
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #6c757d;
-    font-style: italic;
-    text-align: center;
+    position: relative;
 }
 
-
-@media (min-width: 768px) {
-    header h1 {
-        font-size: 3em;
-    }
-
-    .controles {
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 20px;
-    }
+.planill-grid {
+    width: 90%; 
+    height: 90%;
     
-    .custom-file-upload, button {
-        width: auto;
-        flex-shrink: 0;
-    }
-
-    .visualizacion {
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: flex-start;
-    }
-    .visor-recorte {
-        max-width: 500px;
-        height: 500px;
-    }
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 2px; 
 }
+
+.foto-carnet-a4 {
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #ddd;
+    width: 100%;
+    height: 100%;
+}
+
+#mensajePlanilla {
+    position: absolute;
+    text-align: center;
+    color: #666;
+    padding: 20px;
+    width: 80%;
+}
+
 
 footer {
+    background-color: #333;
+    color: white;
     text-align: center;
-    margin-top: 40px;
-    padding: 20px;
-    background-color: var(--color-dark-bg);
-    color: var(--color-dark-text);
-    font-size: 0.9em;
-    border-top: none;
-    border-radius: 0;
-    width: 100%;
-    flex-shrink: 0;
+    padding: 15px 0;
+    margin-top: auto;
+    font-size: 0.8em;
 }
 
 footer a {
-    color: #00f0ff;
+    color: #ffc107;
     text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.pixel-font {
+    font-family: 'Silkscreen', cursive;
+    letter-spacing: 2px;
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 10px;
+        width: 95%;
+    }
+    .visualizacion {
+        flex-direction: column;
+        align-items: center;
+    }
+    .visor-recorte {
+        max-width: 100%;
+        height: 300px;
+    }
+    .controles {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .hoja-a4 {
+        width: 90%; 
+        height: 127%; 
+        max-width: 300px;
+    }
 }

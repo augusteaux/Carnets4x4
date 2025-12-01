@@ -29,30 +29,39 @@ inputRecorte.addEventListener('change', (e) => {
             viewMode: 1,
             autoCropArea: 0.8,
             crop: function(event) {
-                const croppedCanvas = cropper.getCroppedCanvas({
+                const croppedCanvas4x4 = cropper.getCroppedCanvas({
                     width: 150,
                     height: 150,
                 });
                 
                 previaCtx.clearRect(0, 0, previaCanvas.width, previaCanvas.height);
-                previaCtx.drawImage(croppedCanvas, 0, 0, previaCanvas.width, previaCanvas.height);
+                previaCtx.drawImage(croppedCanvas4x4, 0, 0, previaCanvas.width, previaCanvas.height);
                 
+                const croppedCanvasA4 = cropper.getCroppedCanvas({
+                    width: 472,
+                    height: 472,
+                    fillColor: '#fff',
+                });
+                
+                fotoCarnetDataURL = croppedCanvasA4.toDataURL('image/png');
+
+                generarVistaPreviaPlanilla(fotoCarnetDataURL);
                 btnDescargarCarnet.disabled = false;
+                btnGenerarPDF.disabled = false;
+                mensajePlanilla.style.display = 'none';
             }
         });
+        
+        if (cropper) {
+            cropper.crop();
+        }
+
     };
     reader.readAsDataURL(file);
 });
 
 btnDescargarCarnet.addEventListener('click', () => {
-    if (!cropper) return;
-
-    const croppedCanvas = cropper.getCroppedCanvas({
-        width: 400,
-        height: 400,
-    });
-    
-    fotoCarnetDataURL = croppedCanvas.toDataURL('image/png');
+    if (!fotoCarnetDataURL) return;
 
     const a = document.createElement('a');
     a.href = fotoCarnetDataURL;
@@ -60,11 +69,6 @@ btnDescargarCarnet.addEventListener('click', () => {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-
-    btnGenerarPDF.disabled = false;
-    mensajePlanilla.textContent = 'Foto carnet lista. Ahora presiona "Generar e Imprimir Planilla A4 (PDF)".';
-    
-    generarVistaPreviaPlanilla(fotoCarnetDataURL);
 });
 
 inputCarnet.addEventListener('change', (e) => {
@@ -75,24 +79,37 @@ inputCarnet.addEventListener('change', (e) => {
     reader.onload = (event) => {
         fotoCarnetDataURL = event.target.result;
         btnGenerarPDF.disabled = false;
+        if (cropper) {
+            cropper.destroy();
+            cropper = null;
+            imagenParaRecortar.style.display = 'none';
+        }
         generarVistaPreviaPlanilla(fotoCarnetDataURL);
+        mensajePlanilla.style.display = 'none';
     };
     reader.readAsDataURL(file);
 });
 
 function generarVistaPreviaPlanilla(dataUrl) {
-    contenedorPlanillaA4.innerHTML = '';
+    let grid = contenedorPlanillaA4.querySelector('.planill-grid');
+    if (!grid) {
+        contenedorPlanillaA4.innerHTML = '';
+        grid = document.createElement('div');
+        grid.classList.add('planill-grid');
+        contenedorPlanillaA4.appendChild(grid);
+    }
     
+    grid.innerHTML = '';
+
     const COLS = 4;
     const ROWS = 6;
     const NUM_FOTOS = COLS * ROWS;
 
     for (let i = 0; i < NUM_FOTOS; i++) {
-        const img = document.createElement('img');
-        img.src = dataUrl;
-        img.alt = `Foto carnet ${i + 1}`;
-        img.classList.add('foto-carnet-a4');
-        contenedorPlanillaA4.appendChild(img);
+        const div = document.createElement('div');
+        div.classList.add('foto-carnet-a4');
+        div.style.backgroundImage = `url(${dataUrl})`;
+        grid.appendChild(div);
     }
 }
 
@@ -129,14 +146,18 @@ btnGenerarPDF.addEventListener('click', () => {
     const margenYsepVertical = espacioVerticalTotal / numEspaciosVerticales;
 
     let x, y;
-    for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < cols; j++) {
-            x = (j + 1) * margenYsepHorizontal + j * anchoFoto;
-            y = (i + 1) * margenYsepVertical + i * altoFoto;
-            
-            doc.addImage(fotoCarnetDataURL, 'PNG', x, y, anchoFoto, altoFoto);
-        }
-    }
+    const img = new Image();
+    img.src = fotoCarnetDataURL;
 
-    doc.save('planilla_carnet_24x4x4.pdf');
+    img.onload = () => {
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
+                x = (j + 1) * margenYsepHorizontal + j * anchoFoto;
+                y = (i + 1) * margenYsepVertical + i * altoFoto;
+                
+                doc.addImage(img, 'PNG', x, y, anchoFoto, altoFoto);
+            }
+        }
+        doc.save('planilla_carnet_24x4x4.pdf');
+    }
 });
