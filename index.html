@@ -3,35 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Generador de Foto Carnet 4x4 PDF/PNG</title>
-    
+    <title>Generador de Foto Carnet y Redimensionador</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-YDWQ37W65E"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-YDWQ37W65E');
     </script>
-    
-    <meta name="description" content="Crea gratis tu foto carnet 4x4 o passport photo gratis. Recorta, genera planillas A4 con 24 fotos y descarga en PDF o PNG, optimizado para impresión.">
-    
-    <meta name="keywords" content="
-        generar foto carnet, foto carnet, foto documento, fotos 4x4, imprimir fotos carnet, generador online, 
-        passport photo, generate passport photo, visa photo, generate visa photo, id photo maker, photo print, 
-        foto para documento, fotos para pasaporte, planilla A4, recorte de fotos, descargar PDF, descargar PNG, 
-        photo d'identité, générateur photo identité, photo visa france, photo passeport, 
-        gerador de foto 3x4, foto para documento, foto passaporte, baixar PDF, photo ID, free photo generator,
-        fototessere, generatore fototessera, 
-        fotos infantiles, fotos para documentos oficiales
-    ">
-    
-    <meta name="robots" content="index, follow"> 
+    <meta name="description" content="Crea tu foto carnet 4x4 o redimensiona imágenes fácilmente.">
     <link rel="icon" type="image/png" href="alt_logo.png"> 
-    
     <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -39,59 +21,99 @@
 </head>
 <body>
     <header>
-        <h1 class="pixel-font">GENERADOR DE CARNET</h1>
+        <h1 id="titulo-principal" class="pixel-font">GENERADOR DE CARNET</h1>
+        <nav class="minimenu-pixel">
+            <span onclick="mostrarVista('carnet')" class="menu-link pixel-font active">FOTO CARNET</span>
+            <span class="separador">/</span>
+            <span onclick="mostrarVista('redimensionar')" class="menu-link pixel-font">REDIMENSIONAR</span>
+        </nav>
     </header>
-    <main class="contenedor">
-        
-        <section class="seccion-recorte">
-            <h2>Recortar a Foto Carnet (4cm x 4cm)</h2>
-            <div class="controles">
-                <label for="subirImagenRecorte" class="custom-file-upload">
-                    <svg class="upload-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.293a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                    <span>Subir Imagen</span>
-                </label>
-                <input type="file" id="subirImagenRecorte" accept="image/*" style="display: none;">
-                
-                <button id="btnDescargarCarnet" class="custom-file-upload" disabled>
-                    <svg class="upload-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.293a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                    <span>Descargar Carnet</span>
-                </button>
-            </div>
-            <div class="visualizacion">
-                <div class="visor-recorte">
-                    <img id="imagenParaRecortar" src="" alt="Imagen para recortar" style="max-width: 100%; display: none;">
-                </div>
-                <div class="previa-carnet">
-                    <h3>Previsualizacion 4x4</h3>
-                    <canvas id="previaCarnetCanvas" width="150" height="150" style="border: 1px solid #ccc;"></canvas>
-                    <p class="nota">Relacion de aspecto 1:1 </p> <p> 4x4 cm</p>
-                </div>
-            </div>
-        </section>
 
-        <section class="seccion-planilla">
-            <h2>Generar Planilla A4, 24 Fotos</h2>
-            <div class="controles">
-                   <label for="subirFotoCarnet" class="custom-file-upload">
-                    <svg class="upload-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.293a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                    <span>Subir Foto Carnet</span>
-                </label>
-                <input type="file" id="subirFotoCarnet" accept="image/png" style="display: none;" title="Sube la foto 4x4 generada o tu propia imagen 1:1">
-                
-                <button id="btnGenerarPDF" class="custom-file-upload" disabled>
-                    <svg class="upload-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.293a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                    <span>Generar Planilla</span>
-                </button>
-            </div>
-            <div id="contenedorPlanillaA4" class="hoja-a4">
-                   <p id="mensajePlanilla">Sube o recorta una foto carnet para generar la planilla</p>
-            </div>
-        </section>
+    <main class="contenedor">
+        <div id="vista-carnet" class="vista">
+            <section class="seccion-recorte">
+                <h2>Recortar a Foto Carnet (4cm x 4cm)</h2>
+                <div class="controles">
+                    <label for="subirImagenRecorte" class="custom-file-upload">
+                        <svg class="upload-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.293a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Subir Imagen</span>
+                    </label>
+                    <input type="file" id="subirImagenRecorte" accept="image/*" style="display: none;">
+                    
+                    <button id="btnDescargarCarnet" class="custom-file-upload" disabled>
+                        <svg class="upload-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.293a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Descargar Carnet</span>
+                    </button>
+                </div>
+                <div class="visualizacion">
+                    <div class="visor-recorte">
+                        <img id="imagenParaRecortar" src="" alt="Imagen para recortar" style="max-width: 100%; display: none;">
+                    </div>
+                    <div class="previa-carnet">
+                        <h3>Previsualizacion 4x4</h3>
+                        <canvas id="previaCarnetCanvas" width="150" height="150" style="border: 1px solid #ccc;"></canvas>
+                        <p class="nota">Relacion de aspecto 1:1 </p> <p> 4x4 cm</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="seccion-planilla">
+                <h2>Generar Planilla A4, 24 Fotos</h2>
+                <div class="controles">
+                    <label for="subirFotoCarnet" class="custom-file-upload">
+                        <svg class="upload-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.293a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Subir Foto Carnet</span>
+                    </label>
+                    <input type="file" id="subirFotoCarnet" accept="image/png" style="display: none;">
+                    
+                    <button id="btnGenerarPDF" class="custom-file-upload" disabled>
+                        <svg class="upload-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.293a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Generar Planilla</span>
+                    </button>
+                </div>
+                <div id="contenedorPlanillaA4" class="hoja-a4">
+                    <p id="mensajePlanilla">Sube o recorta una foto carnet para generar la planilla</p>
+                </div>
+            </section>
+        </div>
+
+        <div id="vista-redimensionar" class="vista" style="display: none;">
+            <section class="seccion-redimensionar">
+                <h2>Redimensionar Imagen</h2>
+                <div class="controles">
+                    <label for="imageInput" class="custom-file-upload">
+                        <svg class="upload-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.293a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Cargar Imagen</span>
+                    </label>
+                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                    
+                    <button id="downloadResizeBtn" class="custom-file-upload" style="display: none;">
+                        <svg class="upload-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.293a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Descargar Imagen</span>
+                    </button>
+                </div>
+
+                <div class="resize-controls">
+                    <div class="input-group">
+                        <label>Ancho (px)</label>
+                        <input type="number" id="widthInput" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Alto (px)</label>
+                        <input type="number" id="heightInput" placeholder="0">
+                    </div>
+                </div>
+
+                <div class="visualizacion">
+                    <canvas id="resizeCanvas" style="max-width: 100%; display: none; margin: 20px auto; border: 1px solid #ccc;"></canvas>
+                </div>
+            </section>
+        </div>
     </main>
 
     <footer class="pixel-font">
-        <p>Proyecto en <a href="https://github.com/augusteaux/Carnets4x4" target="_blank" rel="noopener noreferrer">GitHub</a></p>
-        <p>&copy; 2025 Generador Web de Fotos Carnet. Codigo abierto.</p>
+        <p>Proyecto en <a href="https://github.com/augusteaux/Carnets4x4" target="_blank">GitHub</a></p>
+        <p>&copy; 2025 Generador Web. Proyecto de código abierto.</p>
     </footer>
 
     <script src="script.js"></script>
