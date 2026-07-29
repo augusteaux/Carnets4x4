@@ -172,6 +172,11 @@ h2 {
     border-radius: 4px;
 }
 
+.input-group input[type="range"] {
+    cursor: pointer;
+    margin-top: 8px;
+}
+
 footer {
     background-color: #333;
     color: white;

@@ -11,7 +11,7 @@
       gtag('js', new Date());
       gtag('config', 'G-YDWQ37W65E');
     </script>
-    <meta name="description" content="Crea tu foto carnet 4x4 o redimensiona imágenes fácilmente.">
+    <meta name="description" content="Crea tu foto carnet 4x4, redimensiona o ajusta la calidad de tus imágenes fácilmente.">
     <link rel="icon" type="image/png" href="alt_logo.png"> 
     <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
@@ -26,6 +26,8 @@
             <span onclick="mostrarVista('carnet')" class="menu-link pixel-font active">FOTO CARNET</span>
             <span class="separador">/</span>
             <span onclick="mostrarVista('redimensionar')" class="menu-link pixel-font">REDIMENSIONAR</span>
+            <span class="separador">/</span>
+            <span onclick="mostrarVista('calidad')" class="menu-link pixel-font">CALIDAD</span>
         </nav>
     </header>
 
@@ -106,6 +108,39 @@
 
                 <div class="visualizacion">
                     <canvas id="resizeCanvas" style="max-width: 100%; display: none; margin: 20px auto; border: 1px solid #ccc;"></canvas>
+                </div>
+            </section>
+        </div>
+
+        <div id="vista-calidad" class="vista" style="display: none;">
+            <section class="seccion-calidad">
+                <h2>Ajustar Calidad de Imagen</h2>
+                <div class="controles">
+                    <label for="qualityImageInput" class="custom-file-upload">
+                        <svg class="upload-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.293a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Cargar Imagen</span>
+                    </label>
+                    <input type="file" id="qualityImageInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div id="qualityControls" class="resize-controls" style="display: none; flex-direction: column; align-items: center; gap: 15px;">
+                    <div class="input-group" style="width: 90%; max-width: 450px; text-align: center;">
+                        <label for="qualityRange" style="font-weight: bold; margin-bottom: 8px;">Ajuste de Calidad</label>
+                        <input type="range" id="qualityRange" min="1" max="100" value="50" style="width: 100%;">
+                    </div>
+                    <div class="input-group" style="width: 150px; text-align: center;">
+                        <label for="qualityNumberInput">Valor manual (%)</label>
+                        <input type="number" id="qualityNumberInput" min="0.1" max="1000" step="0.1" value="50" style="text-align: center;">
+                    </div>
+                </div>
+
+                <div class="visualizacion" style="flex-direction: column; align-items: center;">
+                    <img id="qualityPreview" src="" alt="Vista previa de calidad" style="max-width: 100%; max-height: 500px; display: none; margin: 20px auto; border: 1px solid #ccc;">
+                    
+                    <button id="downloadQualityBtn" class="custom-file-upload" style="display: none; margin-top: 15px;">
+                        <svg class="upload-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.293a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Descargar Imagen</span>
+                    </button>
                 </div>
             </section>
         </div>

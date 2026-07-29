@@ -5,11 +5,18 @@ function mostrarVista(vista) {
     document.getElementById('vista-' + vista).style.display = 'block';
     
     const links = document.querySelectorAll('.menu-link');
-    if (vista === 'carnet') links[0].classList.add('active');
-    else links[1].classList.add('active');
-
     const titulo = document.getElementById('titulo-principal');
-    titulo.innerText = vista === 'carnet' ? 'GENERADOR DE CARNET' : 'REDIMENSIONAR IMAGEN';
+
+    if (vista === 'carnet') {
+        links[0].classList.add('active');
+        titulo.innerText = 'GENERADOR DE CARNET';
+    } else if (vista === 'redimensionar') {
+        links[1].classList.add('active');
+        titulo.innerText = 'REDIMENSIONAR IMAGEN';
+    } else if (vista === 'calidad') {
+        links[2].classList.add('active');
+        titulo.innerText = 'CALIDAD DE IMAGEN';
+    }
 }
 
 const inputRecorte = document.getElementById('subirImagenRecorte');
@@ -137,5 +144,92 @@ downloadResizeBtn.addEventListener('click', () => {
     const link = document.createElement('a');
     link.download = 'redimensionada.png';
     link.href = resizeCanvas.toDataURL();
+    link.click();
+});
+
+const qualityImageInput = document.getElementById('qualityImageInput');
+const qualityControls = document.getElementById('qualityControls');
+const qualityRange = document.getElementById('qualityRange');
+const qualityNumberInput = document.getElementById('qualityNumberInput');
+const qualityPreview = document.getElementById('qualityPreview');
+const downloadQualityBtn = document.getElementById('downloadQualityBtn');
+
+let qualityOriginalImage = new Image();
+let compressedDataURL = '';
+
+qualityImageInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        qualityOriginalImage.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+});
+
+qualityOriginalImage.onload = () => {
+    qualityControls.style.display = 'flex';
+    qualityPreview.style.display = 'block';
+    downloadQualityBtn.style.display = 'inline-flex';
+    actualizarCalidadImagen();
+};
+
+qualityRange.addEventListener('input', () => {
+    qualityNumberInput.value = qualityRange.value;
+    actualizarCalidadImagen();
+});
+
+qualityNumberInput.addEventListener('input', () => {
+    qualityRange.value = Math.min(100, Math.max(1, qualityNumberInput.value));
+    actualizarCalidadImagen();
+});
+
+function actualizarCalidadImagen() {
+    if (!qualityOriginalImage.src) return;
+
+    let valorPorcentaje = parseFloat(qualityNumberInput.value);
+    if (isNaN(valorPorcentaje) || valorPorcentaje <= 0) valorPorcentaje = 0.1;
+
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+
+    const origW = qualityOriginalImage.width;
+    const origH = qualityOriginalImage.height;
+
+    const factorNormalizado = valorPorcentaje / 100;
+    const factorEscala = Math.pow(factorNormalizado, 2); 
+
+    const targetW = Math.max(10, Math.round(origW * factorEscala));
+    const targetH = Math.max(10, Math.round(origH * factorEscala));
+
+    tempCanvas.width = origW;
+    tempCanvas.height = origH;
+
+    tempCtx.fillStyle = '#FFFFFF';
+    tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+
+    if (valorPorcentaje < 100) {
+        const miniCanvas = document.createElement('canvas');
+        miniCanvas.width = targetW;
+        miniCanvas.height = targetH;
+        const miniCtx = miniCanvas.getContext('2d');
+        miniCtx.drawImage(qualityOriginalImage, 0, 0, targetW, targetH);
+
+        tempCtx.imageSmoothingEnabled = false;
+        tempCtx.drawImage(miniCanvas, 0, 0, targetW, targetH, 0, 0, origW, origH);
+    } else {
+        tempCtx.drawImage(qualityOriginalImage, 0, 0, origW, origH);
+    }
+
+    const calidadJPG = Math.min(Math.max(factorNormalizado, 0.01), 1.0);
+    compressedDataURL = tempCanvas.toDataURL('image/jpeg', calidadJPG);
+    qualityPreview.src = compressedDataURL;
+}
+
+downloadQualityBtn.addEventListener('click', () => {
+    if (!compressedDataURL) return;
+    const link = document.createElement('a');
+    link.download = 'imagen_calidad_modificada.jpg';
+    link.href = compressedDataURL;
     link.click();
 });
